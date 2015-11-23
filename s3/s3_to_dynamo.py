@@ -14,7 +14,6 @@ def lambda_handler(event, context):
         meta = {}
         response = s3.get_object(Bucket=bucket, Key=key)
         print("CONTENT TYPE: " + response['ContentType'])
-
         if response['Metadata']:
             dynamodb = boto3.resource('dynamodb')
             table = dynamodb.Table('CHANGEME')
@@ -26,7 +25,6 @@ def lambda_handler(event, context):
                     'file-key': key,
                     'metadata': [meta]
                     })
-
         return 'OK'
     except Exception as e:
         print(e)
